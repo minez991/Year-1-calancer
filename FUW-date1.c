@@ -44,16 +44,15 @@ int is_leap_year(int year){    /*Planning ahead,as in assignment 1 we ignore lea
 };
 
 int checkdate(struct date day){	
-
 	int month[12];
-	if (is_leap_year(day.year) == 0){   /*Defining days in months according to the calendar*/
+	if (is_leap_year(day.year) == 0){                       /*Defining days in months according to the year*/
 		int month[12] = {31,28,31,30,31,30,31,31,30,31,30,31};   
 
 	} else {
 
 		int month[12] = {31,29,31,30,31,30,31,31,30,31,30,31};
 	}
-
+	/*Check if the date is valid*/
 	if ( (day.day >=1 && (day.day <= month[day.month - 1])) && (day.month >= 1 && day.month <= 12) && (day.year >= 1 && day.year <= 10000)){
 		return 1;
 	}else{
