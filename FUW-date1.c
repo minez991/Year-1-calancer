@@ -15,10 +15,10 @@ void main(){  /* Main function*/
 	struct date D1;  /*first date*/
 	struct date d2;  /*Second date*/
 
-        while (checkdate(D1) == 0){
+        do (checkdate(D1) == 0){
 		printf("First date: ");
 		scanf("%i %*[-/] %i %*[-/] %i", &(D1.day),&(D1.month),&(D1.year));
-	}
+	}while();
 	while (checkdate(d2) == 0){
 		printf("\nSecond date: ");
 		scanf("%i %*[-/] %i %*[-/] %i", &(d2.day),&(d2.month),&(d2.year));
