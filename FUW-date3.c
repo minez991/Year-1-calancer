@@ -4,49 +4,57 @@ struct date{    /*Structure for the dates.*/
 	int day;
 	int month;
 	int year;
+	int epochday;
 }date;
 
 int is_leap_year(int);   /*Check for leap year (not going to be used.)*/
 int checkdate(struct date, int month[]); /* Prototype. Validate the date and check for leap year*/
 int convert_day(struct date,int month[]);
 int if_leap_year(struct date);
-struct date[] bubblesort(struct date[]);
+void bubblesort(struct date[], int);
 
 int main(){  /* Main function*/
-	int n,j;
+	int n,j,i;
 	scanf("%i",&n);
 
 	struct date date_array[n];
 	struct date date;  /*first date*/
+	printf("hi");
+	int month[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
 	for (j = 0 ; j < n ; j++){
 		do{	
 			printf("date of %i: ", j);
 			scanf("%i %*[-/] %i %*[-/] %i", &(date.day),&(date.month),&(date.year));
-		}while (checkdate(D1,month) == 0);
+			date.epochday = convert_day(date,month);
+		}while (checkdate(date,month) == 0);
 		date_array[j] = date;
 	}
-	
+	bubblesort(date_array,n);
 
-	int month[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+	for( i = 0; i < n ; i++ ){
+		printf("\n%i/%i/%i\n",date_array[i].day,date_array[i].month,date_array[i].year);
+	}
 
-
-	printf("D1:%i",D1.day);
-	printf(" m1:%i",D1.month);
-	printf(" y:%i\n",D1.year);
-	printf("l1:%i\n", if_leap_year(D1));
-	/*printf("Day Number: %i\n", convert_day(D1,month));*/
-
-	printf("D2:%i",D2.day);
-	printf(" m2:%i",D2.month);
-	printf(" y2:%i\n",D2.year);
-	printf("l2:%i\n", if_leap_year(D2));
-	/*printf("Day Number: %i\n", convert_day(D2,month));*/
 
 
 	return 0;
 }
 
+
+void bubblesort(struct date array[], int n){
+	int i,j;
+	for (i = 0; i < n ; i++){
+		for(j = 0 ; j < n-i-1 ; j++ ){
+			if (array[j].epochday>array[j+1].epochday){
+				struct date temp;
+				temp = array[j];
+				array[j] = array[j+1];
+				array[j+1] = temp;
+			}
+		}
+	}
+}
 int if_leap_year(struct date date){
 	if (date.year%4 == 0){
 		return 1;

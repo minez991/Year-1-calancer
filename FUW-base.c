@@ -15,15 +15,16 @@ void main(){  // Main function
 	struct date d1;  //first date
 	struct date d2;  //Second date
 
-        while (checkdate(d1) == 0){
+    do{
 		printf("First date: ");
 		scanf("%i %*[-/] %i %*[-/] %i", &(d1.day),&(d1.month),&(d1.year));
-	}
-	printdate(
-	while (checkdate(d2) == 0){
+	}while (checkdate(d1) == 0);
+
+
+	do{
 		printf("\nSecond date: ");
 		scanf("%i %*[-/] %i %*[-/] %i", &(d2.day),&(d2.month),&(d2.year));
-	}
+	}while (checkdate(d2) == 0);
 
 
 
@@ -36,7 +37,6 @@ void main(){  // Main function
 	printf(" m2:%i",d2.month);
 	printf(" y2:%i\n",d2.year);
 	printf("l2:%i\n", is_leap_year(d2.year));
-
 }
 
 
