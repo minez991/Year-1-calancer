@@ -16,18 +16,29 @@ void bubblesort(struct date[], int);
 int main(){  /* Main function*/
 	int n,j,i;
 	scanf("%i",&n);
-
+	char ch;
 	struct date date_array[n];
-	struct date date;  /*first date*/
-	printf("hi");
 	int month[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+	struct date date;
 
 	for (j = 0 ; j < n ; j++){
 		do{	
-			printf("date of %i: ", j);
-			scanf("%i %*[-/] %i %*[-/] %i", &(date.day),&(date.month),&(date.year));
-			date.epochday = convert_day(date,month);
+
+			date.day = 0;			/* Reset values every time*/
+			date.month = 0;
+			date.year = 0;
+			date.epochday =  0;
+
+
+			int test=scanf("%i %*[-/] %i %*[-/] %i", &(date.day),&(date.month),&(date.year));   /*Input first date*/
+
+
+			if (test!=3)
+				for(ch=getchar();ch!='\n';ch=getchar()); /*Clear input buffer*/
+
 		}while (checkdate(date,month) == 0);
+
+		date.epochday = convert_day(date,month);
 		date_array[j] = date;
 	}
 	bubblesort(date_array,n);
@@ -83,19 +94,29 @@ int convert_day(struct date date,int month[]){
 	return daynumber;
 }
 
+
 int checkdate(struct date day, int month[]){	
 	/*Check if the date is valid*/
+
+
+
 	if (if_leap_year(day) == 1){
 		month[1] = 29;
-	}
-	
-	if ( (day.day >=1 && (day.day <= month[day.month - 1])) && (day.month >= 1 && day.month <= 12) && (day.year >= 1 && day.year <= 10000)){
-		return 1;
 	}else{
-		printf("%i",month[0]);
+		month[1] = 28;
+	}
+	if(day.month >= 1 && day.month <= 12){			/*Check month first to prevent a seg fault*/
+		if ( (day.day >=1 && (day.day <= month[day.month - 1])) && (day.month >= 1 && day.month <= 12) && (day.year >= 1 && day.year <= 10000)){
+			return 1;
+		}else{
+			fprintf(stderr, "%s", "Check Your Dates Again!\n");
+			return 0;
+		}
+	}else{
 		fprintf(stderr, "%s", "Check Your Dates Again!\n");
 		return 0;
 	}
+
 }
 
 
