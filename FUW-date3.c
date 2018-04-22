@@ -6,10 +6,10 @@ struct date{    /*Structure for the dates.*/
 	int year;
 	int epochday;
 }date;
-
+/* prototype of function*/
 int is_leap_year(int);   /*Check for leap year (not going to be used.)*/
 int checkdate(struct date, int month[]); /* Prototype. Validate the date and check for leap year*/
-int convert_day(struct date,int month[]);
+int convert_day(struct date,int month[]); 
 int if_leap_year(struct date);
 void bubblesort(struct date[], int);
 
@@ -18,7 +18,7 @@ int main(){  /* Main function*/
 	scanf("%i",&n);
 	char ch;
 	struct date date_array[n];
-	int month[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+	int month[12] = {31,28,31,30,31,30,31,31,30,31,30,31};   
 	struct date date;
 
 	for (j = 0 ; j < n ; j++){
@@ -41,10 +41,10 @@ int main(){  /* Main function*/
 		date.epochday = convert_day(date,month);
 		date_array[j] = date;
 	}
-	bubblesort(date_array,n);
+	bubblesort(date_array,n); 
 
 	for( i = 0; i < n ; i++ ){
-		printf("\n%i/%i/%i\n",date_array[i].day,date_array[i].month,date_array[i].year);
+		printf("%i/%i/%i\n",date_array[i].day,date_array[i].month,date_array[i].year);
 	}
 
 
@@ -53,11 +53,11 @@ int main(){  /* Main function*/
 }
 
 
-void bubblesort(struct date array[], int n){
+void bubblesort(struct date array[], int n){ /* sorting the date*/
 	int i,j;
 	for (i = 0; i < n ; i++){
 		for(j = 0 ; j < n-i-1 ; j++ ){
-			if (array[j].epochday>array[j+1].epochday){
+			if (array[j].epochday>array[j+1].epochday){ 
 				struct date temp;
 				temp = array[j];
 				array[j] = array[j+1];
@@ -66,7 +66,7 @@ void bubblesort(struct date array[], int n){
 		}
 	}
 }
-int if_leap_year(struct date date){
+int if_leap_year(struct date date){ /*check if leap year*/
 	if (date.year%4 == 0){
 		return 1;
 	}else{
@@ -75,16 +75,16 @@ int if_leap_year(struct date date){
 }
 
 
-int convert_day(struct date date,int month[]){
+int convert_day(struct date date,int month[]){				/*convery date input a interger from 1/1/1 */
 	int daynumber,days_in_months = 0, days_in_years = 0;
 	int i;
 	for (i = 1 ; i < date.month ; i++){
-		days_in_months = days_in_months + month[i-1]; 
+		days_in_months = days_in_months + month[i-1];       
 	}
 
 	for (i = 1; i <= date.year - 1  ; i++){
 		if (i%4 == 0 ){
-			days_in_years = days_in_years +366;
+			days_in_years = days_in_years +366;			
 		}else{
 			days_in_years = days_in_years + 365;
 		}
@@ -109,11 +109,11 @@ int checkdate(struct date day, int month[]){
 		if ( (day.day >=1 && (day.day <= month[day.month - 1])) && (day.month >= 1 && day.month <= 12) && (day.year >= 1 && day.year <= 10000)){
 			return 1;
 		}else{
-			fprintf(stderr, "%s", "Check Your Dates Again!\n");
+			fprintf(stderr, "%s", "Check Your Dates Again!\n");  	/* print error to stderr*/
 			return 0;
 		}
 	}else{
-		fprintf(stderr, "%s", "Check Your Dates Again!\n");
+		fprintf(stderr, "%s", "Check Your Dates Again!\n"); 	/*print error to stderr*/
 		return 0;
 	}
 

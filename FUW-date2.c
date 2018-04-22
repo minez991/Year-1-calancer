@@ -34,7 +34,7 @@ int main(){  /* Main function*/
 		
 		int test = scanf("%i %*[-/] %i %*[-/] %i", &(D2.day),&(D2.month),&(D2.year));
 		if (test!=3)
-			for(ch=getchar();ch!='\n';ch=getchar());	
+			for(ch=getchar();ch!='\n';ch=getchar());	 /*clear input buffer*/
 
 	}while (checkdate(D2,month) == 0); /*Check if the date is valid, if not repeat*/
 
@@ -56,7 +56,7 @@ void calc_diff(struct date date1,struct date date2,int month[]){
 	
 }
 
-int convert_day(struct date date,int month[]){
+int convert_day(struct date date,int month[]){			/* convert the date passed in to da integer, dates from 1/1/1*/
 
 	int daynumber,days_in_months = 0, days_in_years = 0;
 	int i;
@@ -67,7 +67,7 @@ int convert_day(struct date date,int month[]){
 
 	for (i = 1; i < date.year ; i++){
 		if (i%4 == 0 ){
-			days_in_years = days_in_years +366;
+			days_in_years = days_in_years +366;		/*calculate years with dates*/
 
 		}else{
 			days_in_years = days_in_years + 365;
@@ -79,11 +79,9 @@ int convert_day(struct date date,int month[]){
 	return daynumber;
 }
 
-int checkdate(struct date day, int month[]){	
+int checkdate(struct date day, int month[]){		/*Check if the date is correct.*/
 	/*Check if the date is valid*/
-
-	printf("%i %i %i\n", day.day, day.month, day.year );
-	if (if_leap_year(day) == 1){
+	if (if_leap_year(day) == 1){		/*leap year testing*/
 		month[1] = 29;
 	}else{
 		month[1] = 28;
@@ -92,11 +90,11 @@ int checkdate(struct date day, int month[]){
 		if ( (day.day >=1 && (day.day <= month[day.month - 1])) && (day.month >= 1 && day.month <= 12) && (day.year >= 1 && day.year <= 10000)){
 			return 1;
 		}else{
-			fprintf(stderr, "%s", "Check Your Dates Again!\n");
+			fprintf(stderr, "%s", "Check Your Dates Again!\n");  /* print error message stderr*/
 			return 0;
 		}
 	}else{
-		fprintf(stderr, "%s", "Check Your Dates Again!\n");
+		fprintf(stderr, "%s", "Check Your Dates Again!\n");	/* print error message stderr*/
 		return 0;
 	}
 
